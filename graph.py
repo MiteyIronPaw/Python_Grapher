@@ -8,7 +8,7 @@ WIDTH = 500
 AXIS_SIZE = 70
 
 
-def draw(points, x_label, y_label, functions=None):
+def draw(points, x_label, y_label, functions=None, colours=None):
 	'''The function object needs a get_point metheod the takes an x vaule and returns a y'''
 	Window = tkinter.Tk()
 	f = font.Font(root=Window, family='Arial', size=10)
@@ -44,8 +44,10 @@ def draw(points, x_label, y_label, functions=None):
 	
 	#Draw functions
 	if functions != None:
-		for function in functions:
-			draw_function(c, function, r)
+		i = 0
+		while i < len(functions):
+			draw_function(c, functions[i], r, colours[i])
+			i += 1
 	
 	Window.mainloop()
 
@@ -107,9 +109,9 @@ def draw_scale(c, point, f):
 	
 
 
-def draw_function(c, function, r):
+def draw_function(c, function, r, colour):
 	x_points = list(range(0, WIDTH))
 	old_point = None
 	for x in x_points:
 		y = function.get_point(x / r[0])*r[1]
-		old_point = plot_line(c, (x, y), old_point, colour="red")
+		old_point = plot_line(c, (x, y), old_point, colour=colour)
